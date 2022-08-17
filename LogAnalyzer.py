@@ -4,7 +4,16 @@ import re
 import requests
 import time
 import datetime
+import argparse
+requests.packages.urllib3.disable_warnings()
+parser = argparse.ArgumentParser(description= 'Analyze and create log summary')
 
+parser_group = parser.add_argument_group()
+parser_group.add_argument('-l', '--location', dest="file_location", type=str, help="Enter file location")
+args = parser.parse_args()
+
+if args.file_location:
+    file_location = args.file_location
 
 hosts_dict=dict()
 return_dict =dict()
@@ -198,7 +207,7 @@ def get_timeframe_from_timescale(slot):
     return start, stop
 
 
-read_file = open("C:\\Users\\santop\\PycharmProjects\\PythonAssinment\\AssignmentScripts\\TestFolder\\search_log.log")
+read_file = open(file_location)
 #file_content = get_file_from_url("https://raw.githubusercontent.com/ocatak/apache-http-logs/master/w3af.txt")
 file_content = read_file.read()
 lines = file_content.split('\n')
